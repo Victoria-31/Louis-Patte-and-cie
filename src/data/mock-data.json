@@ -1,0 +1,157 @@
+{
+  "proprietaires": [
+    {
+      "id": 1,
+      "nom": "Dupont",
+      "prenom": "Marie",
+      "telephone": "0612345678",
+      "email": "marie.dupont@email.com"
+    },
+    {
+      "id": 2,
+      "nom": "Martin",
+      "prenom": "Pierre",
+      "telephone": "0623456789",
+      "email": "pierre.martin@email.com"
+    },
+    {
+      "id": 3,
+      "nom": "Bernard",
+      "prenom": "Sophie",
+      "telephone": "0634567890",
+      "email": "sophie.bernard@email.com"
+    }
+  ],
+  "animaux": [
+    {
+      "id": 1,
+      "nom": "Max",
+      "espece": "Chien",
+      "race": "Golden Retriever",
+      "date_naissance": "2020-05-12",
+      "poids": 28.5,
+      "sexe": "M",
+      "allergies": "Poulet",
+      "photo": "https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=400",
+      "proprietaire_id": 1,
+      "vaccinations": [
+        {
+          "nom": "Rage",
+          "date": "2024-05-12",
+          "rappel": "2025-05-12"
+        }
+      ],
+      "historique": [
+        {
+          "date": "2024-11-10",
+          "motif": "Contrôle annuel",
+          "notes": "Bonne santé générale"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nom": "Luna",
+      "espece": "Chat",
+      "race": "Européen",
+      "date_naissance": "2021-03-20",
+      "poids": 4.2,
+      "sexe": "F",
+      "allergies": null,
+      "photo": "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400",
+      "proprietaire_id": 1,
+      "vaccinations": [
+        {
+          "nom": "Typhus + Coryza",
+          "date": "2024-03-20",
+          "rappel": "2025-03-20"
+        }
+      ],
+      "historique": [
+        {
+          "date": "2024-10-05",
+          "motif": "Vomissements",
+          "notes": "Boules de poils"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nom": "Rocky",
+      "espece": "Chien",
+      "race": "Berger Allemand",
+      "date_naissance": "2019-08-03",
+      "poids": 35.0,
+      "sexe": "M",
+      "allergies": "Pollen",
+      "photo": "https://images.unsplash.com/photo-1568572933382-74d440642117?w=400",
+      "proprietaire_id": 2,
+      "vaccinations": [
+        {
+          "nom": "Rage",
+          "date": "2024-08-03",
+          "rappel": "2025-08-03"
+        }
+      ],
+      "historique": [
+        {
+          "date": "2024-09-20",
+          "motif": "Allergie",
+          "notes": "Traitement antihistaminique"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nom": "Bella",
+      "espece": "Chien",
+      "race": "Labrador",
+      "date_naissance": "2018-11-28",
+      "poids": 30.2,
+      "sexe": "F",
+      "allergies": null,
+      "photo": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400",
+      "proprietaire_id": 2,
+      "vaccinations": [
+        {
+          "nom": "Rage",
+          "date": "2023-11-28",
+          "rappel": "2024-11-28"
+        }
+      ],
+      "historique": [
+        {
+          "date": "2024-10-12",
+          "motif": "Arthrose",
+          "notes": "Anti-inflammatoire prescrit"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nom": "Minou",
+      "espece": "Chat",
+      "race": "Persan",
+      "date_naissance": "2022-01-15",
+      "poids": 5.8,
+      "sexe": "M",
+      "allergies": null,
+      "photo": "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?w=400",
+      "proprietaire_id": 3,
+      "vaccinations": [
+        {
+          "nom": "Typhus + Coryza",
+          "date": "2024-01-15",
+          "rappel": "2025-01-15"
+        }
+      ],
+      "historique": [
+        {
+          "date": "2024-07-22",
+          "motif": "Détartrage",
+          "notes": "Tartre important retiré"
+        }
+      ]
+    }
+  ]
+}
