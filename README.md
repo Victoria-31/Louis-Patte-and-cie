@@ -80,3 +80,12 @@ La clinique a besoin d'une interface web simple permettant au personnel de consu
   5. Tests
   6. Mise en Prod --> Github Pages
 
+# Init the project
+
+## Next.js installation
+
+`npm i next@latest react@latest react-dom@latest`
+
+## First run
+
+`npm run dev`
