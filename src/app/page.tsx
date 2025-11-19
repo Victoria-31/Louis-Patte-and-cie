@@ -16,12 +16,21 @@ export default function Page() {
         const proprio = getOwner(animal.proprietaire_id);
         return (
           <div key={animal.id} className={styles.card}>
-            <h2>{animal.nom}</h2>
-            {animal.photo && (
-            <img src={animal.photo} className={styles.profilephoto} />
-            )}
-            <p>Propriétaire: {proprio?.prenom} {proprio?.nom}</p>
-            <Link href={`/animal/${animal.id}`}>Voir détails</Link>
+            <div className={styles.cardLayout}>
+              {animal.photo && (
+                <img src={animal.photo} className={styles.profilephoto} alt={animal.nom} />
+              )}
+              <div className={styles.cardInfo}>
+                <h2>{animal.nom}</h2>
+                <p><strong>Espèce:</strong> {animal.espece} ({animal.race})</p>
+                <p><strong>Sexe:</strong> {animal.sexe === 'M' ? 'Mâle' : 'Femelle'}</p>
+                <p><strong>Propriétaire:</strong> {proprio?.prenom} {proprio?.nom}</p>
+                {animal.vaccinations && animal.vaccinations.length > 0 && (
+                  <p><strong>Vaccination:</strong> {animal.vaccinations.map(v => v.nom).join(', ')}</p>
+                )}
+                <Link href={`/animal/${animal.id}`}>Voir détails</Link>
+              </div>
+            </div>
           </div>
         );
       })}
