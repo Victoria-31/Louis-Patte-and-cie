@@ -14,21 +14,22 @@ export default async function AnimalPage({ params }: { params: Promise<{ id: str
     return (
     <div className='container card'>
         <h1 >Carnet de santé de {animal.nom} 🐾</h1>
-        
-        {animal.photo && (
-            <img src={animal.photo} alt={animal.nom} className='photo' />
-        )}
-        
-        
-        <section className='detailcard'>
-            <h3>Informations générales 📝</h3>
-            <p><strong>Espèce:</strong> {animal.espece}</p>
-            <p><strong>Race:</strong> {animal.race}</p>
-            <p><strong>Date de naissance:</strong> {animal.date_naissance}</p>
-            <p><strong>Poids:</strong> {animal.poids} kg</p>
-            <p><strong>Sexe:</strong> {animal.sexe}</p>
-            <p><strong>Allergies:</strong> {animal.allergies || 'Aucune'}</p>
-        </section>
+            <div className='header-card'>
+                {animal.photo && (
+                    <img src={animal.photo} alt={animal.nom} className='photo' />
+                )}
+                
+                
+                <section className='detailcard'>
+                    <h3>Informations générales 📝</h3>
+                    <p><strong>Espèce:</strong> {animal.espece}</p>
+                    <p><strong>Race:</strong> {animal.race}</p>
+                    <p><strong>Date de naissance:</strong> {animal.date_naissance}</p>
+                    <p><strong>Poids:</strong> {animal.poids} kg</p>
+                    <p><strong>Sexe:</strong> {animal.sexe}</p>
+                    <p><strong>Allergies:</strong> {animal.allergies || 'Aucune'}</p>
+                </section>
+            </div>
 
         {proprietaire && (
             <section className='detailcard'>
