@@ -49,6 +49,35 @@ a {
     color: #ADACAD;
 }
 
+.filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #E8E8E8;
+    color: #666666;
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #D0D0D0;
+}
+
+.filter-button.active {
+    background-color: #818AF9;
+    color: #FFFFFF;
+}
+
 @media screen and (min-width: 650px) {
     .card-content {
         display: flex;

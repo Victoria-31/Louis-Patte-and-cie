@@ -14,7 +14,7 @@ export default function SearchBar({ value, onChange }: Props) {
       <Image src={search} alt="Search" width={20} height={20} />
       <input 
         type="text" 
-        placeholder="Search for an animal..." 
+        placeholder="Rechercher un animal..." 
         className='search-input'
         value={value}
         onChange={(e) => onChange(e.target.value)}

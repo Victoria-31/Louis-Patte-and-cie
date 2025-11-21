@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { fetchMockData } from '../utils/data-fetch'
 import SearchBar from '../components/SearchableAnimalList'
+import FilterButtons from '../components/FilterButtons'
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [activeFilter, setActiveFilter] = useState('Sexe')
   const [mockData, setMockData] = useState<any>(null)
 
   // Load data on mount
@@ -23,7 +25,10 @@ export default function Page() {
     return proprietaires.find((owner: any) => owner.id === proprietaire_id)
   }
 
-  const filteredAnimals = animals.filter((animal: any) => {
+  // Filter by search query
+  const searchFilteredAnimals = animals.filter((animal: any) => {
+    if (!searchQuery) return true;
+
     const owner = getOwner(animal.proprietaire_id);
     const searchLower = searchQuery.toLowerCase();
     
@@ -31,9 +36,39 @@ export default function Page() {
       animal.nom.toLowerCase().includes(searchLower) ||
       animal.espece.toLowerCase().includes(searchLower) ||
       animal.race.toLowerCase().includes(searchLower) ||
+      animal.sexe.toLowerCase().includes(searchLower) ||
       (owner?.nom.toLowerCase().includes(searchLower)) ||
-      (owner?.prenom.toLowerCase().includes(searchLower))
+      (owner?.prenom.toLowerCase().includes(searchLower)) ||
+      animal.vaccinations?.some((v: any) => v.nom.toLowerCase().includes(searchLower))
     );
+  });
+
+  // Sort based on active filter
+  const filteredAnimals = [...searchFilteredAnimals].sort((a: any, b: any) => {
+    switch (activeFilter) {
+      case 'Sexe':
+        // M (Mâle) before F (Femelle)
+        return a.sexe.localeCompare(b.sexe);
+      case 'Propriétaire':
+        const ownerA = getOwner(a.proprietaire_id);
+        const ownerB = getOwner(b.proprietaire_id);
+        const ownerNameA = `${ownerA?.nom} ${ownerA?.prenom}`;
+        const ownerNameB = `${ownerB?.nom} ${ownerB?.prenom}`;
+        return ownerNameA.localeCompare(ownerNameB);
+      case 'Espèce':
+        // Sort by species, then by race
+        if (a.espece !== b.espece) {
+          return a.espece.localeCompare(b.espece);
+        }
+        return a.race.localeCompare(b.race);
+      case 'Vaccination':
+        // Sort alphabetically by vaccine name
+        const vacNameA = a.vaccinations?.[0]?.nom || '';
+        const vacNameB = b.vaccinations?.[0]?.nom || '';
+        return vacNameA.localeCompare(vacNameB);
+      default:
+        return 0;
+    }
   });
 
   return (
@@ -42,6 +77,7 @@ export default function Page() {
         <h1><strong style={{ padding: '10px' }}>What's up Doc ? 🐶🐱</strong></h1>
       </div>
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      <FilterButtons activeFilter={activeFilter} onFilterChange={setActiveFilter} />
       {filteredAnimals.map((animal: any) => {
         const proprio = getOwner(animal.proprietaire_id);
         return (
