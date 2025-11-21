@@ -1,11 +1,17 @@
-import { fetchMockData } from '../../../utils/data-fetch'
 import Link from 'next/link'
 import { leftArrow } from '../../../assets'
 import Image from 'next/image'
+import type { MockData } from '../../../types'
+import fs from 'fs'
+import path from 'path'
 
 export default async function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const mockData = await fetchMockData();
+    
+    // Server-side: read directly from filesystem
+    const filePath = path.join(process.cwd(), 'public', 'data', 'mockData.json')
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const mockData: MockData = JSON.parse(fileContents)
     const animal = mockData.animaux.find(animal => animal.id === parseInt(id));
     
     if (!animal) {
