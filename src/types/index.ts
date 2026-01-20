@@ -25,6 +25,23 @@ export interface Animal {
   historique: Historique[];
 }
 
+export interface ApiAnimal {
+  id: string;
+  attributes: {
+    name: string;
+    species: string;
+    breed: string;
+    dateOfBirth: string;
+    weight: number;
+    gender: 'M' | 'F';
+    picture: string | null;
+    owner: Proprietaire;
+    vaccines: Vaccination[];
+    visits: Historique[];
+  };
+}
+
+
 export interface Proprietaire {
   id: number;
   nom: string;

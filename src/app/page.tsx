@@ -3,26 +3,31 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { fetchMockData } from '../utils/data-fetch'
+import { normalizeAnimal } from '../utils/normalizers';
 import SearchBar from '../components/SearchableAnimalList'
 import FilterButtons from '../components/FilterButtons'
 import type { MockData, Animal, Proprietaire, Vaccination } from '../types'
-import {getAllAnimals} from '../utils/request'
-import axios from 'axios';
+import {getAllAnimals, getAllOwners, getAllVaccinations} from '../utils/request'
+
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('Sexe')
   const [mockData, setMockData] = useState<MockData | null>(null)
   const [animals, setAnimals] = useState([]);
+  const [vaccines, setVaccinations] = useState([]);
+  const [owners, setOwners] = useState([]);
+
+
+  
+
+const fetchData = async () => {
+  const animalsFetch = await getAllAnimals();
+  setAnimals(animalsFetch.data.map(normalizeAnimal));
+};
 
   // Load data on mount
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getAllAnimals();
-      setAnimals(result.data);
-      console.log('Fetched animals:', animals);
-    };
-    
     fetchMockData().then(setMockData)
     fetchData();
   }, []);
@@ -61,6 +66,11 @@ export default function Page() {
 
   // Sort based on active filter
   const filteredAnimals = [...searchFilteredAnimals].sort((a: Animal, b: Animal) => {
+    console.log(
+  'DEBUG sexes:',
+  animals.map((a: any) => ({ id: a.id, sexe: a.sexe }))
+);
+
     switch (activeFilter) {
       case 'Sexe':
         // M (Mâle) before F (Femelle)
