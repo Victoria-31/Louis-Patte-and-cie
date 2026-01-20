@@ -3,7 +3,7 @@ import type { MockData } from '../types'
 // Client-side data fetching
 export async function fetchMockData(): Promise<MockData> {
   try {
-    const response = await fetch('/data/mockData.json')
+const response = await  await fetch('/data/mockData.json')
     
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`)
@@ -15,4 +15,3 @@ export async function fetchMockData(): Promise<MockData> {
     throw error
   }
 }
-

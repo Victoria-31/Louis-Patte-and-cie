@@ -6,23 +6,34 @@ import { fetchMockData } from '../utils/data-fetch'
 import SearchBar from '../components/SearchableAnimalList'
 import FilterButtons from '../components/FilterButtons'
 import type { MockData, Animal, Proprietaire, Vaccination } from '../types'
+import {getAllAnimals} from '../utils/request'
+import axios from 'axios';
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('Sexe')
   const [mockData, setMockData] = useState<MockData | null>(null)
+  const [animals, setAnimals] = useState([]);
 
   // Load data on mount
   useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAllAnimals();
+      setAnimals(result.data);
+      console.log('Fetched animals:', animals);
+    };
+    
     fetchMockData().then(setMockData)
-  }, [])
+    fetchData();
+  }, []);
 
-  if (!mockData) {
+
+  if (!animals) {
     return <div>Loading...</div>
   }
+  
 
-  const animals = mockData.animaux;
-  const proprietaires = mockData.proprietaires;
+  const proprietaires = mockData?.proprietaires || [];
 
   const getOwner = (proprietaire_id: number) => {
     return proprietaires.find((owner: Proprietaire) => owner.id === proprietaire_id)
