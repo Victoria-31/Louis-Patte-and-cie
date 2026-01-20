@@ -1,24 +1,57 @@
+'use client';
+
 import Link from 'next/link'
+import { useState, useEffect, use } from 'react'
+import {getAllAnimals, getAllOwners, getAllVaccinations} from '@/utils/request'
+import { normalizeAnimal, normalizeOwner, normalizeVaccination } from '@/utils/normalizers';
+
 import { leftArrow } from '../../../assets'
 import Image from 'next/image'
-import type { MockData } from '../../../types'
-import fs from 'fs'
-import path from 'path'
+// import type { MockData } from '../../../types'
+// import fs from 'fs'
+// import path from 'path'
 
-export default async function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params;
-    
+interface Props {
+  params: Promise<{ id: string }>
+}
+
+export default function AnimalPage({ params }: Props) {
+  const { id } = use(params)  
+      const [animals, setAnimals] = useState([]);
+    //   const [vaccines, setVaccinations] = useState([]);
+      const [owners, setOwners] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const animalsFetch = await getAllAnimals()
+      setAnimals(animalsFetch.data.map(normalizeAnimal))
+
+      const ownersFetch = await getAllOwners()
+      setOwners(ownersFetch.data.map(normalizeOwner))
+
+    //   const vaccinesFetch = await getAllVaccinations()
+    //   setVaccinations(vaccinesFetch.data.map(normalizeVaccination))
+
+    }
+
+    fetchData()
+    }, []);
+
+
     // Server-side: read directly from filesystem
-    const filePath = path.join(process.cwd(), 'public', 'data', 'mockData.json')
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const mockData: MockData = JSON.parse(fileContents)
-    const animal = mockData.animaux.find(animal => animal.id === parseInt(id));
+    // const filePath = path.join(process.cwd(), 'public', 'data', 'mockData.json')
+    // const fileContents = fs.readFileSync(filePath, 'utf8')
+    // const mockData: MockData = JSON.parse(fileContents)
+
+
+    const animal = animals.find(animal => animal.id ===id);
     
     if (!animal) {
         return <div>Animal not found</div>;
     }
     
-    const proprietaire = mockData.proprietaires.find(p => p.id === animal.proprietaire_id);
+  const proprietaire = owners.find(p => p.id === animal.proprietaire_id)
     
     return (
     <div className='container card'>

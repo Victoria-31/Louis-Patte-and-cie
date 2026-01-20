@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { fetchMockData } from '../utils/data-fetch'
-import { normalizeAnimal } from '../utils/normalizers';
+import { normalizeAnimal, normalizeOwner, normalizeVaccination } from '../utils/normalizers';
 import SearchBar from '../components/SearchableAnimalList'
 import FilterButtons from '../components/FilterButtons'
 import type { MockData, Animal, Proprietaire, Vaccination } from '../types'
@@ -24,6 +24,10 @@ export default function Page() {
 const fetchData = async () => {
   const animalsFetch = await getAllAnimals();
   setAnimals(animalsFetch.data.map(normalizeAnimal));
+  const ownersFetch = await getAllOwners();
+  setOwners(ownersFetch.data.map(normalizeOwner));
+  const vaccinesFetch = await getAllVaccinations(normalizeVaccination);
+  setVaccinations(vaccinesFetch.data);
 };
 
   // Load data on mount
@@ -38,10 +42,10 @@ const fetchData = async () => {
   }
   
 
-  const proprietaires = mockData?.proprietaires || [];
+  //const proprietaires = mockData?.proprietaires || [];
 
   const getOwner = (proprietaire_id: number) => {
-    return proprietaires.find((owner: Proprietaire) => owner.id === proprietaire_id)
+    return owners.find((owner: Proprietaire) => owner.id === proprietaire_id)
   }
 
   // Filter by search query
@@ -59,17 +63,13 @@ const fetchData = async () => {
       animal.race.toLowerCase().includes(searchLower) ||
       animal.sexe.toLowerCase().includes(searchLower) ||
       (owner?.nom.toLowerCase().includes(searchLower)) ||
-      (owner?.prenom.toLowerCase().includes(searchLower)) ||
+      // (owner?.prenom.toLowerCase().includes(searchLower)) ||
       animal.vaccinations?.some((v: Vaccination) => v.nom.toLowerCase().includes(searchLower))
     );
   });
 
   // Sort based on active filter
   const filteredAnimals = [...searchFilteredAnimals].sort((a: Animal, b: Animal) => {
-    console.log(
-  'DEBUG sexes:',
-  animals.map((a: any) => ({ id: a.id, sexe: a.sexe }))
-);
 
     switch (activeFilter) {
       case 'Sexe':
@@ -78,8 +78,8 @@ const fetchData = async () => {
       case 'Propriétaire':
         const ownerA = getOwner(a.proprietaire_id);
         const ownerB = getOwner(b.proprietaire_id);
-        const ownerNameA = `${ownerA?.nom} ${ownerA?.prenom}`;
-        const ownerNameB = `${ownerB?.nom} ${ownerB?.prenom}`;
+        const ownerNameA = `${ownerA?.nom} `;
+        const ownerNameB = `${ownerB?.nom} `;
         return ownerNameA.localeCompare(ownerNameB);
       case 'Espèce':
         // Sort by species, then by race

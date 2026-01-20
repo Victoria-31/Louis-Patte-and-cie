@@ -32,15 +32,61 @@ export interface ApiAnimal {
     species: string;
     breed: string;
     dateOfBirth: string;
-    weight: number;
-    gender: 'M' | 'F';
     picture: string | null;
-    owner: Proprietaire;
-    vaccines: Vaccination[];
-    visits: Historique[];
+    weight: string; 
+    gender: 'M' | 'F';
+
+    owner: {
+  ownerId: string;
+  userId: string;
+  name: string;
+  phone: string;
+  address: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+    vaccines: [];
+    visits: [];
+    createdAt: string;
+    updatedAt: string;
   };
 }
 
+
+
+export interface ApiVaccination {
+  id: string;
+  attributes: {
+    name: string;
+    administrationDate: string;
+    reminderDelays: number[];
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface ApiOwner {
+  id: string;
+  attributes: {
+    name: string;
+    phone: string;
+    user: {
+      email: string;
+  };
+}
+}
+
+export interface ApiVisit {
+  id: string;
+  attributes: {
+    date: string;
+    motif: string;
+    notes: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
 
 export interface Proprietaire {
   id: number;

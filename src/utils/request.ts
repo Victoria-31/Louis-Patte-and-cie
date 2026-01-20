@@ -1,3 +1,4 @@
+import { ApiVaccination } from '@/types';
 import axios from 'axios';
 
 const getAllAnimals = async () => {
@@ -42,4 +43,18 @@ const getVaccinationById = async (id: string) => {
   .catch((error) => console.error(error));
 }
 
-export { getAllAnimals, getAnimalById, getAllOwners, getOwnerById, getAllVaccinations, getVaccinationById };
+const getAllVisits = async () => {
+  return axios
+    .get(`${process.env.NEXT_PUBLIC_API_URL}/visits`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+}
+
+const getVisitById = async (id: string) => {
+  return axios
+  .get(`${process.env.NEXT_PUBLIC_API_URL}/visits/${id}`)
+  .then((response) => response.data)
+  .catch((error) => console.error(error));
+}
+
+export { getAllAnimals, getAnimalById, getAllOwners, getOwnerById, getAllVaccinations, getVaccinationById, getAllVisits, getVisitById };
