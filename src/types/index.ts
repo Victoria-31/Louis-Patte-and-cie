@@ -33,24 +33,49 @@ export interface ApiAnimal {
     breed: string;
     dateOfBirth: string;
     picture: string | null;
-    weight: string; 
+    weight: string;
     gender: 'M' | 'F';
 
     owner: {
-  ownerId: string;
-  userId: string;
-  name: string;
-  phone: string;
-  address: string;
-  createdAt: string;
-  updatedAt: string;
-};
+      ownerId: string;
+      userId: string;
+      name: string;
+      phone: string;
+      address: string;
+      createdAt: string;
+      updatedAt: string;
+    };
 
-    vaccines: [];
-    visits: [];
+    vaccines: ApiVaccine[];
+    visits: ApiVisit[];
+
     createdAt: string;
     updatedAt: string;
   };
+}
+
+export interface ApiVaccine {
+  vaccineId: string;
+  name: string;
+  administrationDate: string;
+  vaccineStatus: string;
+  reminderDelays: number[];
+  veterinarianId: string;
+  animalId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApiVisit {
+  visitId: string;
+  date: string;
+  reason: string;
+  visitStatus: string;
+  observation: string;
+  animalId: string;
+  veterinarianId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 
@@ -81,8 +106,8 @@ export interface ApiVisit {
   id: string;
   attributes: {
     date: string;
-    motif: string;
-    notes: string;
+    reason: string;
+    observation: string;
     createdAt: string;
     updatedAt: string;
   };

@@ -3,44 +3,43 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { fetchMockData } from '../utils/data-fetch'
-import { normalizeAnimal, normalizeOwner, normalizeVaccination } from '../utils/normalizers';
+import { normalizeAnimal, normalizeOwner } from '../utils/normalizers';
 import SearchBar from '../components/SearchableAnimalList'
 import FilterButtons from '../components/FilterButtons'
 import type { MockData, Animal, Proprietaire, Vaccination } from '../types'
-import {getAllAnimals, getAllOwners, getAllVaccinations} from '../utils/request'
+import {getAllItems} from '../utils/request'
 
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('Sexe')
-  const [mockData, setMockData] = useState<MockData | null>(null)
+  // const [mockData, setMockData] = useState<MockData | null>(null)
   const [animals, setAnimals] = useState([]);
-  const [vaccines, setVaccinations] = useState([]);
+  // const [vaccinations, setVaccinations] = useState([]);
   const [owners, setOwners] = useState([]);
+  // const [visits, setVisits] = useState([]);
 
 
   
 
 const fetchData = async () => {
-  const animalsFetch = await getAllAnimals();
+  const animalsFetch = await getAllItems('animals');
   setAnimals(animalsFetch.data.map(normalizeAnimal));
-  const ownersFetch = await getAllOwners();
+  const ownersFetch = await getAllItems('owners');
   setOwners(ownersFetch.data.map(normalizeOwner));
-  const vaccinesFetch = await getAllVaccinations(normalizeVaccination);
-  setVaccinations(vaccinesFetch.data);
+  // const visitsFetch = await getAllItems('visits');
+  // setVisits(visitsFetch.data.map(normalizeVisit)); 
 };
 
   // Load data on mount
   useEffect(() => {
-    fetchMockData().then(setMockData)
+    // fetchMockData().then(setMockData)
     fetchData();
   }, []);
-
 
   if (!animals) {
     return <div>Loading...</div>
   }
-  
 
   //const proprietaires = mockData?.proprietaires || [];
 

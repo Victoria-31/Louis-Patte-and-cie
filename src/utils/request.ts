@@ -1,60 +1,12 @@
-import { ApiVaccination } from '@/types';
 import axios from 'axios';
 
-const getAllAnimals = async () => {
-  return axios
-    .get(`${process.env.NEXT_PUBLIC_API_URL}/animals`)
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
-};
+// faire une fonction pour éviter la répétition de l'URL de base
 
-const getAnimalById = async (id: string) => {
+const getAllItems = async (endpoint: string) => {
   return axios
-  .get(`${process.env.NEXT_PUBLIC_API_URL}/animals/${id}`)
-  .then((response) => response.data)
-  .catch((error) => console.error(error));
-}
-
-const getAllOwners = async () => {
-  return axios
-    .get(`${process.env.NEXT_PUBLIC_API_URL}/owners`)
+    .get(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`)
     .then((response) => response.data)
     .catch((error) => console.error(error));
 }
 
-const getOwnerById = async (id: string) => {
-  return axios
-  .get(`${process.env.NEXT_PUBLIC_API_URL}/owners/${id}`)
-  .then((response) => response.data)
-  .catch((error) => console.error(error));
-}
-
-const getAllVaccinations = async () => {
-  return axios
-    .get(`${process.env.NEXT_PUBLIC_API_URL}/vaccines`)
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
-}
-
-const getVaccinationById = async (id: string) => {
-  return axios
-  .get(`${process.env.NEXT_PUBLIC_API_URL}/vaccines/${id}`)
-  .then((response) => response.data)
-  .catch((error) => console.error(error));
-}
-
-const getAllVisits = async () => {
-  return axios
-    .get(`${process.env.NEXT_PUBLIC_API_URL}/visits`)
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
-}
-
-const getVisitById = async (id: string) => {
-  return axios
-  .get(`${process.env.NEXT_PUBLIC_API_URL}/visits/${id}`)
-  .then((response) => response.data)
-  .catch((error) => console.error(error));
-}
-
-export { getAllAnimals, getAnimalById, getAllOwners, getOwnerById, getAllVaccinations, getVaccinationById, getAllVisits, getVisitById };
+export {  getAllItems };

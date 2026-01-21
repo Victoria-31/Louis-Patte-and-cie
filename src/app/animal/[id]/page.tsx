@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { useState, useEffect, use } from 'react'
-import {getAllAnimals, getAllOwners, getAllVaccinations} from '@/utils/request'
-import { normalizeAnimal, normalizeOwner, normalizeVaccination } from '@/utils/normalizers';
+import {getAllItems} from '@/utils/request'
+import { normalizeAnimal, normalizeOwner } from '@/utils/normalizers';
 
 import { leftArrow } from '../../../assets'
 import Image from 'next/image'
+import { get } from 'http';
 // import type { MockData } from '../../../types'
 // import fs from 'fs'
 // import path from 'path'
@@ -20,19 +21,16 @@ export default function AnimalPage({ params }: Props) {
       const [animals, setAnimals] = useState([]);
     //   const [vaccines, setVaccinations] = useState([]);
       const [owners, setOwners] = useState([]);
+    //   const [visits, setVisits] = useState([]);
 
 
   useEffect(() => {
     const fetchData = async () => {
-      const animalsFetch = await getAllAnimals()
+      const animalsFetch = await getAllItems('animals');
       setAnimals(animalsFetch.data.map(normalizeAnimal))
 
-      const ownersFetch = await getAllOwners()
+      const ownersFetch = await getAllItems('owners');
       setOwners(ownersFetch.data.map(normalizeOwner))
-
-    //   const vaccinesFetch = await getAllVaccinations()
-    //   setVaccinations(vaccinesFetch.data.map(normalizeVaccination))
-
     }
 
     fetchData()
