@@ -1,101 +1,88 @@
-# 🔗 Connexion du Frontend au Backend
+# 🔗 Connexion Frontend / Backend
 
-Ce projet frontend (Next.js / React) est connecté à une API backend afin de remplacer progressivement des données mockées par des données réelles.
+Ce frontend (Next.js / React) est connecté à une API backend afin de remplacer des données mockées par des données réelles.
 
-L’objectif est de **récupérer les données du backend**, de les **adapter au format attendu par le frontend**, puis de les **stocker dans des états React** pour les afficher et les manipuler (recherche, filtres, tri).
+L’objectif principal est de **récupérer les données du backend**, de les **adapter au format attendu par le frontend**, puis de les **exploiter dans l’interface** (liste, recherche, filtres, navigation).
 
 ---
 
-## 🧱 Architecture mise en place
+## 🧱 Principe général
 
-### 1️⃣ Centralisation des appels API (`request.ts`)
+### 1️⃣ Centralisation des appels API
 
-Un fichier utilitaire `request.ts` a été créé pour éviter la répétition de l’URL de base de l’API et centraliser les appels HTTP.
+Les appels HTTP sont centralisés dans un fichier utilitaire `request.ts`.
 
 * Utilisation de **Axios**
-* L’URL de base est définie via une variable d’environnement :
+* URL de base définie via la variable d’environnement :
 
 ```
 NEXT_PUBLIC_API_URL
 ```
 
-* Une fonction générique `getAllItems(endpoint)` permet de récupérer les données de n’importe quelle ressource (animals, owners, etc.)
+* Une fonction générique `getAllItems(endpoint)` permet de récupérer facilement les données de différentes ressources (animals, owners, etc.)
 
-👉 Cela rend le code plus lisible, maintenable et réutilisable.
-
----
-
-### 2️⃣ Récupération des données côté frontend
-
-Dans les pages React (components client), les données sont récupérées :
-
-* au montage du composant (`useEffect`)
-* via la fonction `getAllItems`
-* puis stockées dans des **états React** avec `useState`
-
-Exemples d’états :
-
-* `animals`
-* `owners`
-
-Ces états servent ensuite de source unique de vérité pour l’affichage.
+👉 Cela évite la duplication de code et facilite la maintenance.
 
 ---
 
-### 3️⃣ Normalisation des données (adapter le back au front)
+### 2️⃣ Récupération et stockage des données
 
-Le backend et le frontend n’utilisent pas exactement les mêmes conventions de nommage ni la même structure de données.
+Les données sont récupérées au montage des composants (`useEffect`) puis stockées dans des **états React** (`useState`).
 
-👉 Un fichier `normalizers.ts` a donc été créé pour :
+Ces états constituent la source de données utilisée pour l’affichage et les traitements côté frontend.
 
-* transformer les objets issus de l’API (`ApiAnimal`, `ApiVisit`, `ApiVaccine`, etc.)
-* en objets adaptés au frontend (`Animal`, `Vaccination`, `Historique`)
+---
 
-Exemples de transformations :
+### 3️⃣ Normalisation des données
+
+Le backend et le frontend n’utilisent pas exactement la même structure ni les mêmes conventions de nommage.
+
+Un fichier `normalizers.ts` a donc été mis en place pour :
+
+* transformer les données issues de l’API (`ApiAnimal`, `ApiVisit`, `ApiVaccine`, etc.)
+* en objets adaptés aux besoins du frontend (`Animal`, `Vaccination`, `Historique`)
+
+Exemples :
 
 * `administrationDate` → `date`
 * `reason` → `motif`
 * `observation` → `notes`
-* regroupement des `vaccines` et `visits` directement dans l’animal
 
-Cela permet :
-
-* un JSX plus simple
-* une séparation claire entre **logique métier** et **affichage**
-* une meilleure maintenabilité si le backend évolue
+👉 Cela permet de découpler le frontend de la structure du backend et de simplifier le JSX.
 
 ---
 
-### 4️⃣ Typage avec TypeScript
+### 4️⃣ Typage TypeScript
 
-Des interfaces TypeScript ont été définies pour :
+Des interfaces TypeScript sont utilisées pour :
 
-* les données venant de l’API (`ApiAnimal`, `ApiVisit`, `ApiVaccine`, `ApiOwner`)
-* les données utilisées côté frontend (`Animal`, `Vaccination`, `Historique`, `Proprietaire`)
+* typer les données reçues depuis l’API
+* typer les données manipulées côté frontend
 
-👉 Cela garantit :
-
-* une meilleure sécurité
-* une autocomplétion fiable
-* moins d’erreurs lors du mapping et de l’affichage
+Cela améliore la fiabilité du code, l’autocomplétion et limite les erreurs lors du mapping.
 
 ---
 
-### 5️⃣ Exploitation des données
+## 🚧 Fonctionnalités non reliées au backend
 
-Une fois les données normalisées et stockées dans les états :
+Certaines fonctionnalités prévues côté backend ne sont pas encore reliées au frontend, principalement par manque de pages ou de composants dédiés.
 
-* recherche multi-critères (animal, espèce, propriétaire, vaccination)
-* filtres (sexe, espèce, propriétaire, vaccination)
-* navigation dynamique vers une page détail par animal
+À ce stade, **les actions suivantes ne sont pas implémentées côté frontend** :
+
+* authentification (register / login)
+* gestion du JWT côté interface utilisateur
+* création d’un animal
+* modification d’un animal
+* création ou modification de visites et de vaccinations
+
+Ces fonctionnalités nécessitent la création de **formulaires dédiés** et de pages supplémentaires côté frontend, qui n’ont pas encore été développées.
 
 ---
 
-## ✅ Résumé
+## ✅ En résumé
 
-✔️ Appels API centralisés
-✔️ Données récupérées via `useEffect`
-✔️ Normalisation des données back → front
-✔️ Typage strict avec TypeScript
-✔️ Frontend découplé de la structure du backend
+* Connexion fonctionnelle entre le frontend et le backend pour la **lecture des données**
+* Appels API centralisés
+* Données normalisées et typées
+* Interface découplée de la structure du backend
 
