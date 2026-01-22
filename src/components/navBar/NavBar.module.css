@@ -1,0 +1,10 @@
+.navbar {
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:4rem;
+    border-radius: 32px 32px 0 0;
+    box-shadow: 0 0 8px 8px rgba(68, 68, 68, 0.04);
+
+}

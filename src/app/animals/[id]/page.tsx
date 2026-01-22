@@ -53,7 +53,7 @@ export default function AnimalPage({ params }: Props) {
     return (
     <div className='container card'>
         <div className='title-header'>
-            <Link href="/">
+            <Link href="/animals">
                 <Image src={leftArrow} alt="Retour" width={32} height={32} />
             </Link>
             <h1>Carnet de santé de {animal.nom} 🐾</h1>
