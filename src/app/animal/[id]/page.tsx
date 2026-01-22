@@ -7,7 +7,6 @@ import { normalizeAnimal, normalizeOwner } from '@/utils/normalizers';
 
 import { leftArrow } from '../../../assets'
 import Image from 'next/image'
-import { get } from 'http';
 // import type { MockData } from '../../../types'
 // import fs from 'fs'
 // import path from 'path'

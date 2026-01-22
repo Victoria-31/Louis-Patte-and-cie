@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { fetchMockData } from '../utils/data-fetch'
 import { normalizeAnimal, normalizeOwner } from '../utils/normalizers';
 import SearchBar from '../components/SearchableAnimalList'
 import FilterButtons from '../components/FilterButtons'
-import type { MockData, Animal, Proprietaire, Vaccination } from '../types'
+import type { Animal, Proprietaire, Vaccination } from '../types'
 import {getAllItems} from '../utils/request'
 
 

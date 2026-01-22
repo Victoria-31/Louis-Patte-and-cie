@@ -1,4 +1,4 @@
-import type { ApiAnimal, ApiOwner, ApiVaccination, ApiVisit } from '../types';
+import type { ApiAnimal, ApiOwner } from '../types';
 
 export const normalizeAnimal = (item: ApiAnimal) => ({
   id: item.id,
