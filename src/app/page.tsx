@@ -1,8 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import Login from "./components/login/Login";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+const closeModal = () => setIsModalOpen(false);
+
   return (
     <main className={styles.main}>
       <section>
@@ -19,7 +27,28 @@ export default function Home() {
       </h1>
       <h2>Nous vous aidons à garder votre <strong>compagnon</strong> en bonne santé !</h2>
     </section>
-    <Link href="/">ME CONNECTER</Link>
+      <button
+    className={styles.buttonLogin}
+    onClick={() => setIsModalOpen(true)}
+  >
+    Me connecter
+  </button>
+     {isModalOpen && (
+        <div 
+          className={styles.modalBackground}
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="login-modal"
+        >
+          <div 
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Login onClose={closeModal} />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

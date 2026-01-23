@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { search } from '../assets'
+import { search } from '../../assets'
 
 interface Props {
   value: string;

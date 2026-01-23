@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { normalizeAnimal, normalizeOwner } from '../../utils/normalizers';
-import SearchBar from '../../components/SearchableAnimalList'
-import FilterButtons from '../../components/FilterButtons'
+import SearchBar from '../components/SearchableAnimalList'
+import FilterButtons from '../components/FilterButtons'
 import type { Animal, Proprietaire, Vaccination } from '../../types'
 import {getAllItems} from '../../utils/request'
 

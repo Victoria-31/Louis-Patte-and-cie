@@ -45,7 +45,7 @@ export default function AnimalPage({ params }: Props) {
     const animal = animals.find(animal => animal.id ===id);
     
     if (!animal) {
-        return <div>Animal not found</div>;
+        return <div>Animal loading</div>;
     }
     
   const proprietaire = owners.find(p => p.id === animal.proprietaire_id)
