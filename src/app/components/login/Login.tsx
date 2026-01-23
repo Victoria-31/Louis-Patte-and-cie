@@ -4,30 +4,35 @@ import { useState } from "react";
 import styles from './Login.module.css';
 import Register from "../register/Register";
 import axios, { type AxiosError } from "axios";
-
-//import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { useAuth } from "@/utils/authContext";
 
 export default function Login({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // const [Role, setRole] = useState("anonymous");
+
+  const {  setRole } = useAuth();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null); 
 
     try {
-    // console.log("Login user:", { email, password });
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { email, password });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { email, password });
+      const role = response.data.role;
+      setRole(role);
+      toast.success("Connexion réussie !");
+      onClose(); 
 
-    // toast.success("Inscription réussie !");
-    onClose();
   } catch (err: unknown) {
       const error = err as AxiosError<{ message: string }>;
       const errorMessage = error.response?.data?.message || "Erreur lors de l'inscription";
       setError(errorMessage);
-      // toast.error(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -47,8 +52,8 @@ export default function Login({ onClose }: { onClose: () => void }) {
     <form onSubmit={handleSubmit} className={styles.loginForm}>
       <h2>Connexion</h2>
       <label htmlFor="email" >
-  Email
-</label>
+        Email
+      </label>
       <input
         type="email"
         placeholder="Email"
@@ -57,8 +62,8 @@ export default function Login({ onClose }: { onClose: () => void }) {
         required
       />
       <label htmlFor="password" >
-  Mot de passe
-</label>
+        Mot de passe
+      </label>
       <input
         type="password"
         placeholder="Mot de passe"
@@ -81,18 +86,6 @@ export default function Login({ onClose }: { onClose: () => void }) {
       <button type="button" className={styles.buttonRegister} onClick={handleRegisterClick}>
         Inscrivez-vous
       </button>
-
-      {/* <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
     </form>
   );
 }

@@ -5,6 +5,7 @@
         "./src/*"
       ]
     },
+    "allowSyntheticDefaultImports": true,
     "target": "ES2017",
     "lib": [
       "dom",
