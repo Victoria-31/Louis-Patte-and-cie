@@ -62,27 +62,87 @@ Des interfaces TypeScript sont utilisées pour :
 Cela améliore la fiabilité du code, l’autocomplétion et limite les erreurs lors du mapping.
 
 ---
+## 🔐 Authentification utilisateur
 
-## 🚧 Fonctionnalités non reliées au backend
+### Login & Register
+
+Mise en place de formulaires **Login** et **Register** reliés à l’API back-end.
+
+Lors de la connexion :
+
+- le serveur renvoie le **rôle de l’utilisateur** (`owner`, `veterinarian`, etc.)
+- ce rôle est stocké côté frontend afin de gérer l’**affichage conditionnel** de l’interface
+
+Gestion des retours utilisateurs :
+
+- messages d’erreur
+- confirmation de connexion
+
+---
+
+## 🧭 AuthContext global
+
+Création d’un **AuthContext React** permettant de :
+
+- stocker le rôle de l’utilisateur connecté
+- rendre cette information accessible dans toute l’application
+
+### Fonctionnement
+
+- le contexte est initialisé au chargement à partir du **stockage local**
+- lors du login, le rôle est **mis à jour dynamiquement** suite à la réponse du serveur
+
+➡️ Cette approche permet une **gestion centralisée de l’état d’authentification**, sans dupliquer la logique dans chaque composant.
+
+---
+
+## 🧭 Navigation dynamique (Navbar)
+
+La **navbar s’adapte automatiquement** en fonction du rôle de l’utilisateur.
+
+- les liens spécifiques (ex : accès vétérinaire) sont affichés ou masqués selon les permissions
+- cette logique est entièrement pilotée par le **AuthContext**
+
+👉 Cela améliore l’expérience utilisateur en évitant d’afficher des fonctionnalités non accessibles.
+
+⚠️ Les règles de sécurité restent garanties côté **back-end** : le frontend ne gère que l’affichage, les routes restent protégées côté API.
+
+---
+
+## 🚧 Fonctionnalités non encore reliées au backend
 
 Certaines fonctionnalités prévues côté backend ne sont pas encore reliées au frontend, principalement par manque de pages ou de composants dédiés.
 
-À ce stade, **les actions suivantes ne sont pas implémentées côté frontend** :
+À ce stade, les actions suivantes ne sont pas encore implémentées côté frontend :
 
-* authentification (register / login)
-* gestion du JWT côté interface utilisateur
-* création d’un animal
-* modification d’un animal
-* création ou modification de visites et de vaccinations
+- création d’un animal  
+- modification d’un animal  
+- création ou modification de visites et de vaccinations  
+- dashboards dédiés selon le rôle  
 
-Ces fonctionnalités nécessitent la création de **formulaires dédiés** et de pages supplémentaires côté frontend, qui n’ont pas encore été développées.
+Ces fonctionnalités nécessitent la création de **formulaires dédiés** et de **pages supplémentaires** côté frontend.
+
+---
+
+## 🚀 Axes d’évolution envisagés
+
+Mise en place de **dashboards personnalisés selon le rôle** :
+
+- **Dashboard vétérinaire** : gestion des animaux, visites, vaccinations  
+- **Dashboard propriétaire** : consultation de ses animaux et de leur carnet de santé  
+
+Navigation et accès conditionnels basés sur le rôle stocké dans le **AuthContext**.
+
+Évolution vers une interface plus **personnalisée et orientée métier**.
 
 ---
 
 ## ✅ En résumé
 
-* Connexion fonctionnelle entre le frontend et le backend pour la **lecture des données**
-* Appels API centralisés
-* Données normalisées et typées
-* Interface découplée de la structure du backend
+- Connexion fonctionnelle entre le frontend et le backend pour la lecture des données  
+- Appels API centralisés  
+- Données normalisées et typées  
+- Authentification intégrée côté frontend  
+- Gestion des rôles via un **AuthContext global**  
+- Interface découplée de la structure du backend et prête à évoluer  
 
