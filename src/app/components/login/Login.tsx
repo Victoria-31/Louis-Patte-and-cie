@@ -5,12 +5,17 @@ import styles from './Login.module.css';
 import Register from "../register/Register";
 import axios, { type AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useAuth } from "@/utils/authContext";
 
 export default function Login({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // const [Role, setRole] = useState("anonymous");
+
+  const {  setRole } = useAuth();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +24,7 @@ export default function Login({ onClose }: { onClose: () => void }) {
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { email, password });
       const role = response.data.role;
-      localStorage.setItem("role", role);
+      setRole(role);
       toast.success("Connexion réussie !");
       onClose(); 
 

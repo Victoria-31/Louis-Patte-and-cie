@@ -1,19 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { AuthProps, AuthProviderProps } from "@/types";
+import { createContext, useContext, useState } from "react";
+import type { AuthProps, AuthProviderProps } from "@/types";
 
 const authContext = createContext<AuthProps | null>(null);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [role, setRole] = useState("anonymous");
-
-  useEffect(() => {
-    const storedRole = localStorage.getItem("role");
-    if (storedRole) {
-      setRole(storedRole);
-    }
-  }, []);
 
   return (
     <authContext.Provider value={{ role, setRole }}>
@@ -24,6 +17,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 export function useAuth() {
   const context = useContext(authContext);
-  if (!context) throw new Error("Le auth context doit exister");
+  if (!context) {
+    throw new Error("Le auth context doit exister");
+  }
   return context;
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styles from './Register.module.css';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios, { type AxiosError } from "axios";
 
@@ -25,7 +25,7 @@ export default function Register({ onClose }: { onClose: () => void }) {
       const error = err as AxiosError<{ message: string }>;
       const errorMessage = error.response?.data?.message || "Erreur lors de l'inscription";
       setError(errorMessage);
-      // toast.error(errorMessage);
+      toast.error(errorMessage);
     }
 }
 
@@ -63,18 +63,6 @@ export default function Register({ onClose }: { onClose: () => void }) {
       <button type="button" className={styles.buttonBackSignin} onClick={onClose}>
         Retour à la connexion
       </button>
-    
-      {/* <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light" 
-      /> */}
     </form>
   );
 }
