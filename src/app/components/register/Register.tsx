@@ -4,9 +4,8 @@ import { useState } from "react";
 import styles from './Register.module.css';
 // import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios, { type AxiosError } from "axios";
 
-import axios from "axios";
-import type { AxiosError } from "axios";
 
 export default function Register({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");

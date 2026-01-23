@@ -3,8 +3,8 @@
 import { useState } from "react";
 import styles from './Login.module.css';
 import Register from "../register/Register";
-import axios from "axios";
-import type { AxiosError } from "axios";
+import axios, { type AxiosError } from "axios";
+
 //import { toast, ToastContainer } from "react-toastify";
 
 export default function Login({ onClose }: { onClose: () => void }) {
@@ -18,7 +18,7 @@ export default function Login({ onClose }: { onClose: () => void }) {
     setError(null); 
 
     try {
-    console.log("Login user:", { email, password });
+    // console.log("Login user:", { email, password });
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { email, password });
 
     // toast.success("Inscription réussie !");
