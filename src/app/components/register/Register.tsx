@@ -5,7 +5,8 @@ import styles from './Register.module.css';
 // import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import type { AxiosError } from "axios";
 
 export default function Register({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Register({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     setError(null);
      try {
-    console.log("Registering user:", { email, password, userRole });
+    // console.log("Registering user:", { email, password, userRole });
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users`, { email, password, userRole });
 
     // toast.success("Inscription réussie !");

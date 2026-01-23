@@ -1,10 +1,10 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import styles from './Login.module.css';
 import Register from "../register/Register";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import type { AxiosError } from "axios";
 //import { toast, ToastContainer } from "react-toastify";
 
 export default function Login({ onClose }: { onClose: () => void }) {
