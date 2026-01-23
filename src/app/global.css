@@ -33,6 +33,10 @@ main {
   min-height: calc(100vh - 8vh);
 }
 
+.errorMessage{
+    color: red;
+}
+
 .container {
     padding: 20px;
     max-width: 800px;

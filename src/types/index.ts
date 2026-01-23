@@ -125,3 +125,12 @@ export interface MockData {
   animaux: Animal[];
   proprietaires: Proprietaire[];
 }
+
+export interface AuthProps {
+  role: string;
+  setRole: (role: string) => void;
+}
+
+export interface AuthProviderProps {
+  children: React.ReactNode;
+}
