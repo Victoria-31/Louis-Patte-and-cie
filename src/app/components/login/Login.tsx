@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import styles from './Login.module.css';
 import Register from "../register/Register";
+import axios, { AxiosError } from "axios";
 //import { toast, ToastContainer } from "react-toastify";
 
 export default function Login({ onClose }: { onClose: () => void }) {
@@ -16,21 +17,17 @@ export default function Login({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     setError(null); 
 
-    const res = await signIn("credentials", {
-      email,
-      password,
-      callbackUrl: "/", 
-      redirect: false, 
-    });
+    try {
+    console.log("Login user:", { email, password });
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, { email, password });
 
-    if (res?.ok) {
-    //   toast.success("Connexion réussie !");
-      onClose(); 
-
-    } else {
-      const errorMessage = "Identifiants invalides";
+    // toast.success("Inscription réussie !");
+    onClose();
+  } catch (err: unknown) {
+      const error = err as AxiosError<{ message: string }>;
+      const errorMessage = error.response?.data?.message || "Erreur lors de l'inscription";
       setError(errorMessage);
-    //   toast.error(errorMessage);
+      // toast.error(errorMessage);
     }
   };
 

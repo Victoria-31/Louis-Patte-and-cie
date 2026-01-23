@@ -10,15 +10,15 @@ import axios, { AxiosError } from "axios";
 export default function Register({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
      try {
-    console.log("Registering user:", { email, password, name });
-    await axios.post("/api/auth/signup", { email, password, name });
+    console.log("Registering user:", { email, password, userRole });
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users`, { email, password, userRole });
 
     // toast.success("Inscription réussie !");
     onClose();
@@ -33,12 +33,12 @@ export default function Register({ onClose }: { onClose: () => void }) {
   return (
     <form onSubmit={handleRegister} className={styles.registerForm}>
       <h2>Inscription</h2>
-      <label htmlFor="name"> Nom</label>
+      <label htmlFor="userRole"> Role </label>
       <input
         type="text"
-        placeholder="Nom"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        placeholder="Role"
+        value={userRole}
+        onChange={(e) => setUserRole(e.target.value)}
         required
       />
       <label htmlFor="email"> Email</label>
